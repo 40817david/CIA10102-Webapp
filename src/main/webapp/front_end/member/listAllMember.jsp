@@ -21,7 +21,7 @@
 
 <h3>---所有會員資料---</h3>
 <br>
-<h4><a href="select_page.jsp">回首頁</a></h4>
+<h4><a href="<%=request.getContextPath()%>/front_end/member/select_page.jsp">回首頁</a></h4>
 <br>
 
 <table>
@@ -35,6 +35,7 @@
 		<th>電話</th>
 		<th>地址</th>
 		<th>會員圖片</th>
+		<th>修改</th>
 	</tr>
 	
 	<c:forEach var="memVO" items="${list}">
@@ -55,12 +56,20 @@
 				</c:if>
 			<td>${memVO.phone}</td>
 			<td>${memVO.address}</td>
+			
 				<c:if test="${memVO.memberPic==null}">
 					<td>無圖片</td>
 				</c:if>
 				<c:if test="${memVO.memberPic!=null}">
 					<td>${memVO.memberPic}</td>
 				</c:if>
+				
+			<td>
+			  <form method="post" action="<%=request.getContextPath()%>/member.do">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="memberId"  value="${memVO.memberId}">
+			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			</td>
 		</tr>
 	</c:forEach>
 </table>

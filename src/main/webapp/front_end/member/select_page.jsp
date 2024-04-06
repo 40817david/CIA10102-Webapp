@@ -29,7 +29,7 @@
 
 <ul>
 	<li>
-	<a href = "listAllMember.jsp">秀出所有資料</a>
+	<a href = "<%=request.getContextPath()%>/front_end/member/listAllMember.jsp">秀出所有資料</a>
 	</li>
 	
 	
@@ -62,11 +62,20 @@
 	</li>
 
 </ul>
+
+
+
 <br>
 <br>
 
 
 
+
+<ul>
+
+<li> <a href="<%=request.getContextPath()%>/front_end/member/addMember.jsp">新增會員</a></li>
+
+</ul>
 
 
 

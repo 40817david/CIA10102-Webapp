@@ -19,7 +19,7 @@
 
 <h3>---搜尋的會員資料結果---</h3>
 <br>
-<h4><a href="select_page.jsp">回首頁</a></h4>
+<h4><a href="<%=request.getContextPath()%>/front_end/member/select_page.jsp">回首頁</a></h4>
 <br>
 
 <table>
