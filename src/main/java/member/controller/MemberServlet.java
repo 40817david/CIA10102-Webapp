@@ -40,8 +40,8 @@ public class MemberServlet extends HttpServlet{
 			
 			
 			/***************************接收請求並做錯誤判斷**********************/
-			String str = req.getParameter("memberId");
-			if(str == null || (str.trim()).length() == 0) {
+			String inputText = req.getParameter("memberId");
+			if(inputText == null || (inputText.trim()).length() == 0) {
 				errorMsgs.add("請輸入會員編號");
 			}
 			
@@ -56,7 +56,7 @@ public class MemberServlet extends HttpServlet{
 			
 			Integer memberId = null;
 			try {
-				memberId = Integer.valueOf(str);
+				memberId = Integer.valueOf(inputText);
 			}catch(Exception e) {
 				errorMsgs.add("會員編號格式不正確");
 			}
@@ -112,7 +112,7 @@ public class MemberServlet extends HttpServlet{
 
 			String email = req.getParameter("email");
 			if(email == null || email.trim().length() == 0) {
-				errorMsgs.add("Email:Can't Empty!");
+				errorMsgs.add("會員信箱:不得為空!");
 			} 
 			
 			
@@ -121,17 +121,17 @@ public class MemberServlet extends HttpServlet{
 			String memebrNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{2,10}$";
 
 			if(memberName == null || memberName.trim().length() == 0) {
-				errorMsgs.add("Name:Can't Empty!");
+				errorMsgs.add("會員名稱:不得為空!");
 			} else if(!memberName.trim().matches(memebrNameReg)) { //以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("姓名: 只能是中、英文字母、數字 , 且長度必需在2到10之間");
+				errorMsgs.add("會員名稱: 只能是中、英文字母、數字 , 且長度必需在2到10之間");
             }
 			
 			
 			
 			String password = req.getParameter("password");
 			if(password == null || password.trim().length() == 0) {
-				errorMsgs.add("Password:Can't Empty!");
-			}
+				errorMsgs.add("會員密碼:不得為空!");
+			} 
 			
 			
 			
@@ -139,7 +139,7 @@ public class MemberServlet extends HttpServlet{
 			try {
 				birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
 			}catch(IllegalArgumentException ie){
-				errorMsgs.add("Birthday:Can't Empty!");
+				errorMsgs.add("會員生日:不得為空!");
 			}
 			
 			
@@ -149,14 +149,14 @@ public class MemberServlet extends HttpServlet{
 			
 			String phone = req.getParameter("phone");
 			if(phone == null || phone.trim().length() == 0) {
-				errorMsgs.add("Phone:Can't Empty!");
+				errorMsgs.add("會員電話:不得為空!");
 			}
 			
 			
 			
 			String address = req.getParameter("address");
 			if(address == null || address.trim().length() == 0) {
-				errorMsgs.add("Address:Can't Empty!");
+				errorMsgs.add("會員地址:不得為空!");
 			}
 			
 			
@@ -186,15 +186,15 @@ public class MemberServlet extends HttpServlet{
 
 					InputStream is = null;
 
-					out.println("<PRE>");
-					
-					out.println("name: " + part.getName());
-					out.println("filename:" + filename);
-					out.println("ContentType" + part.getContentType());
-					out.println("Size" + part.getSize());
+//					out.println("<PRE>");
+//					
+//					out.println("name: " + part.getName());
+//					out.println("filename:" + filename);
+//					out.println("ContentType" + part.getContentType());
+//					out.println("Size" + part.getSize());
 					
 					File f = new File(fileSaveDirectory, filename);
-					out.println("File: " + f);
+//					out.println("File: " + f);
 
 					// 寫入資料夾,上傳成功
 					part.write(f.toString());
@@ -202,13 +202,17 @@ public class MemberServlet extends HttpServlet{
 					//InputStream寫入
 					is = part.getInputStream();
 					
-					// 上傳圖顯示
-					out.println("<br><img src=\""+req.getContextPath()+saveDirectory+"/"+filename+"\">");
-					out.println();
-					out.println("</PRE>");
-					
 					memberPic = new byte[is.available()];
-					is.read();
+					is.read(memberPic);
+									
+					
+					// 上傳圖顯示
+					out.println();
+					out.print("<h4>此為上傳圖片預覽</h4>");
+					out.println("<br><img src=\""+req.getContextPath()+saveDirectory+"/"+filename+"\">");
+					
+//					out.println("</PRE>");
+					
 					is.close();
 				}
 			}
@@ -303,22 +307,26 @@ public class MemberServlet extends HttpServlet{
 				
 				String email = req.getParameter("email");
 				if(email == null || email.trim().length() == 0) {
-					errorMsgs.add("Email:Can't Empty!");
-				}
+					errorMsgs.add("會員信箱:不得為空!");
+				} 
 				
 				
 				
 				String memberName = req.getParameter("memberName");
+				String memebrNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{2,10}$";
+
 				if(memberName == null || memberName.trim().length() == 0) {
-					errorMsgs.add("Name:Can't Empty!");
-				}
+					errorMsgs.add("會員名稱:不得為空!");
+				} else if(!memberName.trim().matches(memebrNameReg)) { //以下練習正則(規)表示式(regular-expression)
+					errorMsgs.add("會員名稱: 只能是中、英文字母、數字 , 且長度必需在2到10之間");
+	            }
 				
 				
 				
 				String password = req.getParameter("password");
 				if(password == null || password.trim().length() == 0) {
-					errorMsgs.add("Password:Can't Empty!");
-				}
+					errorMsgs.add("會員密碼:不得為空!");
+				} 
 				
 				
 				
@@ -326,7 +334,7 @@ public class MemberServlet extends HttpServlet{
 				try {
 					birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
 				}catch(IllegalArgumentException ie){
-					errorMsgs.add("Birthday:Can't Empty!");
+					errorMsgs.add("會員生日:不得為空!");
 				}
 				
 				
@@ -336,14 +344,14 @@ public class MemberServlet extends HttpServlet{
 				
 				String phone = req.getParameter("phone");
 				if(phone == null || phone.trim().length() == 0) {
-					errorMsgs.add("Phone:Can't Empty!");
+					errorMsgs.add("會員電話:不得為空!");
 				}
 				
 				
 				
 				String address = req.getParameter("address");
 				if(address == null || address.trim().length() == 0) {
-					errorMsgs.add("Address:Can't Empty!");
+					errorMsgs.add("會員地址:不得為空!");
 				}
 				
 				
@@ -373,15 +381,15 @@ public class MemberServlet extends HttpServlet{
 
 						InputStream is = null;
 
-						out.println("<PRE>");
-						
-						out.println("name: " + part.getName());
-						out.println("filename:" + filename);
-						out.println("ContentType" + part.getContentType());
-						out.println("Size" + part.getSize());
+//						out.println("<PRE>");
+//						
+//						out.println("name: " + part.getName());
+//						out.println("filename:" + filename);
+//						out.println("ContentType" + part.getContentType());
+//						out.println("Size" + part.getSize());
 						
 						File f = new File(fileSaveDirectory, filename);
-						out.println("File: " + f);
+//						out.println("File: " + f);
 
 						// 寫入資料夾,上傳成功
 						part.write(f.toString());
@@ -389,13 +397,17 @@ public class MemberServlet extends HttpServlet{
 						//InputStream寫入
 						is = part.getInputStream();
 						
-						// 上傳圖顯示
-						out.println("<br><img src=\""+req.getContextPath()+saveDirectory+"/"+filename+"\">");
-						out.println();
-						out.println("</PRE>");
-						
 						memberPic = new byte[is.available()];
 						is.read(memberPic);
+										
+						
+						// 上傳圖顯示
+						out.println();
+						out.print("<h4>此為上傳圖片預覽</h4>");
+						out.println("<br><img src=\""+req.getContextPath()+saveDirectory+"/"+filename+"\">");
+						
+//						out.println("</PRE>");
+						
 						is.close();
 					}
 				}
@@ -417,7 +429,7 @@ public class MemberServlet extends HttpServlet{
 				//若有錯誤訊息，則帶使用者回到頁面
 				if(!errorMsgs.isEmpty()) {
 					req.setAttribute("memVO", memVO); // 先前輸入的memVO物件也存入req
-					String failUrl = "/front_end/member/addMember.jsp" ;
+					String failUrl = "/front_end/member/updateMember.jsp" ;
 					RequestDispatcher fail = req.getRequestDispatcher(failUrl);
 					fail.forward(req, res);
 					return; //中斷程式

@@ -5,7 +5,6 @@
 <% 
 	MemberVO memVO = (MemberVO)request.getAttribute("memVO"); 
 %>
-<%= memVO==null %>
 
 
 <!DOCTYPE html>
@@ -50,7 +49,7 @@
 
 <tr>
 <td>會員密碼:</td>
-<td><input type="text" name="password" value="<%=(memVO==null) ? "" : memVO.getPassword()%>"></td>
+<td><input type="password" name="password" value="<%=(memVO==null) ? "" : memVO.getPassword()%>"></td>
 </tr>
 
 <tr>
