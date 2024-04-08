@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="member.model.*"%>
 
@@ -13,20 +13,20 @@ MemberVO memVO = (MemberVO) request.getAttribute("memVO");
 <html>
 
 <head>
-<meta charset="BIG5">
-<title>­×§ï¸ê®Æ ---From updateMember.jsp</title>
+<meta charset="UTF-8">
+<title>ä¿®æ”¹è³‡æ–™ ---From updateMember.jsp</title>
 </head>
 
 
 <body>
 
-<h3>---­×§ï·|­û¸ê®Æ---</h3>
+<h3>---ä¿®æ”¹æœƒå“¡è³‡æ–™---</h3>
 <br>
 
-<%-- ¿ù»~°T®§¦Cªí§e²{³B --%>
+<%-- éŒ¯èª¤è¨Šæ¯åˆ—è¡¨å‘ˆç¾è™• --%>
 
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -39,51 +39,51 @@ MemberVO memVO = (MemberVO) request.getAttribute("memVO");
 <table>
 
 <tr>
-	<td>·|­û½s¸¹:<font color=red><b>*</b></font></td>
+	<td>æœƒå“¡ç·¨è™Ÿ:<font color=red><b>*</b></font></td>
 	<td><%=memVO.getMemberId()%></td>
 </tr>
 
 <tr>
-	<td>·|­û«H½c:<font color=red><b>*</b></font></td>
+	<td>æœƒå“¡ä¿¡ç®±:<font color=red><b>*</b></font></td>
 	<td><input type="text" name="email" value="<%=memVO.getEmail()%>"></td>
 </tr>
 
 <tr>
-	<td>·|­û¦WºÙ:<font color=red><b>*</b></font></td>
+	<td>æœƒå“¡åç¨±:<font color=red><b>*</b></font></td>
 	<td><input type="text" name="memberName" value="<%=memVO.getMemberName()%>"></td>
 </tr>
 
 <tr>
-	<td>·|­û±K½X:<font color=red><b>*</b></font></td>
+	<td>æœƒå“¡å¯†ç¢¼:<font color=red><b>*</b></font></td>
 	<td><input type="text" name="password" value="<%=memVO.getPassword()%>"></td>
 </tr>
 
 <tr>
-	<td>·|­û¥Í¤é:<font color=red><b>*</b></font></td>
-	<td><input type="text" name="birthday" value="<%=memVO.getBirthday()%>"></td>
+	<td>æœƒå“¡ç”Ÿæ—¥:<font color=red><b>*</b></font></td>
+	<td><input type="text" id="f_date1" name="birthday" value="<%=memVO.getBirthday()%>"></td>
 </tr>
 
 <tr>
-	<td>·|­û©Ê§O:<font color=red><b>*</b></font></td>
+	<td>æœƒå“¡æ€§åˆ¥:<font color=red><b>*</b></font></td>
 	<td><select name="gender">
-		<option value="0">¨k</option>
-		<option value="1">¤k</option>
-		<option value="2">¨ä¥L</option>
+		<option value="0">ç”·</option>
+		<option value="1">å¥³</option>
+		<option value="2">å…¶ä»–</option>
 	</select></td>
 </tr>
 
 <tr>
-	<td>·|­û¹q¸Ü:<font color=red><b>*</b></font></td>
+	<td>æœƒå“¡é›»è©±:<font color=red><b>*</b></font></td>
 	<td><input type="text" name="phone" value="<%=memVO.getPhone()%>"></td>
 </tr>
 
 <tr>
-	<td>·|­û¦a§}:<font color=red><b>*</b></font></td>
+	<td>æœƒå“¡åœ°å€:<font color=red><b>*</b></font></td>
 	<td><input type="text" name="address" value="<%=memVO.getAddress()%>"></td>
 </tr>
 
 <tr>
-	<td>·|­û¹Ï¤ù:</td>
+	<td>æœƒå“¡åœ–ç‰‡:</td>
 	<td><input type="file" name="memberPic"></td>
 </tr>
 
@@ -91,14 +91,23 @@ MemberVO memVO = (MemberVO) request.getAttribute("memVO");
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="memberId" value="<%=memVO.getMemberId()%>">
-<input type="submit" value="°e¥X­×§ï">
+<input type="submit" value="é€å‡ºä¿®æ”¹">
 
 </form>
 
 
 </body>
 
-<!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
+<!-- =========================================ä»¥ä¸‹ç‚º datetimepicker ä¹‹ç›¸é—œè¨­å®š========================================== -->
+
+<% 
+  java.sql.Date birthday = null;
+  try {
+	    birthday = memVO.getBirthday();
+   } catch (Exception e) {
+	   birthday = new java.sql.Date(System.currentTimeMillis());
+   }
+%>
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
@@ -118,20 +127,20 @@ MemberVO memVO = (MemberVO) request.getAttribute("memVO");
         $('#f_date1').datetimepicker({
            theme: '',              //theme: 'dark',
  	       timepicker:false,       //timepicker:true,
- 	       step: 1,                //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)
+ 	       step: 1,                //step: 60 (é€™æ˜¯timepickerçš„é è¨­é–“éš”60åˆ†é˜)
  	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '<%=memVO.getBirthday()%>', // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t
-           //startDate:	            '2017/07/10',  // °_©l¤é
-           //minDate:               '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e
-           //maxDate:               '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á
+ 		   value: '<%=birthday%>',  
+           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // å»é™¤ç‰¹å®šä¸å«
+           //startDate:	            '2017/07/10',  // èµ·å§‹æ—¥
+           //minDate:               '-1970-01-01', // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å‰
+           //maxDate:               '+1970-01-01'  // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å¾Œ
         });
         
         
    
-        // ----------------------------------------------------------¥H¤U¥Î¨Ó±Æ©wµLªk¿ï¾Üªº¤é´Á-----------------------------------------------------------
+        // ----------------------------------------------------------ä»¥ä¸‹ç”¨ä¾†æ’å®šç„¡æ³•é¸æ“‡çš„æ—¥æœŸ-----------------------------------------------------------
 
-        //      1.¥H¤U¬°¬Y¤@¤Ñ¤§«eªº¤é´ÁµLªk¿ï¾Ü
+        //      1.ä»¥ä¸‹ç‚ºæŸä¸€å¤©ä¹‹å‰çš„æ—¥æœŸç„¡æ³•é¸æ“‡
         //      var somedate1 = new Date('2017-06-15');
         //      $('#f_date1').datetimepicker({
         //          beforeShowDay: function(date) {
@@ -145,7 +154,7 @@ MemberVO memVO = (MemberVO) request.getAttribute("memVO");
         //      }});
 
         
-        //      2.¥H¤U¬°¬Y¤@¤Ñ¤§«áªº¤é´ÁµLªk¿ï¾Ü
+        //      2.ä»¥ä¸‹ç‚ºæŸä¸€å¤©ä¹‹å¾Œçš„æ—¥æœŸç„¡æ³•é¸æ“‡
         //      var somedate2 = new Date('2017-06-15');
         //      $('#f_date1').datetimepicker({
         //          beforeShowDay: function(date) {
@@ -159,7 +168,7 @@ MemberVO memVO = (MemberVO) request.getAttribute("memVO");
         //      }});
 
 
-        //      3.¥H¤U¬°¨â­Ó¤é´Á¤§¥~ªº¤é´ÁµLªk¿ï¾Ü (¤]¥i«ö»İ­n´«¦¨¨ä¥L¤é´Á)
+        //      3.ä»¥ä¸‹ç‚ºå…©å€‹æ—¥æœŸä¹‹å¤–çš„æ—¥æœŸç„¡æ³•é¸æ“‡ (ä¹Ÿå¯æŒ‰éœ€è¦æ›æˆå…¶ä»–æ—¥æœŸ)
         //      var somedate1 = new Date('2017-06-15');
         //      var somedate2 = new Date('2017-06-25');
         //      $('#f_date1').datetimepicker({

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="member.model.*"%>
 
@@ -11,22 +11,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>·s¼W·|­û --- From addMember.jsp</title>
+<meta charset="UTF-8">
+<title>æ–°å¢æœƒå“¡ --- From addMember.jsp</title>
 </head>
 
 
 <body>
 
-<h3>---·s¼W·|­û¸ê®Æ---</h3>
+<h3>---æ–°å¢æœƒå“¡è³‡æ–™---</h3>
 <br>
-<h4><a href="<%=request.getContextPath()%>/front_end/member/select_page.jsp">¦^­º­¶</a></h4>
+<h4><a href="<%=request.getContextPath()%>/front_end/member/select_page.jsp">å›é¦–é </a></h4>
 <br>
 
-<%-- ¿ù»~°T®§¦Cªí§e²{³B --%>
+<%-- éŒ¯èª¤è¨Šæ¯åˆ—è¡¨å‘ˆç¾è™• --%>
 
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -39,56 +39,56 @@
 <table>
 
 <tr>
-<td>Email</td>
+<td>æœƒå“¡ä¿¡ç®±:</td>
 <td><input type="text" name="email" value="<%= (memVO==null) ? "" : memVO.getEmail()%>"></td>
 </tr>
 
 <tr>
-<td>Name</td>
+<td>æœƒå“¡åç¨±</td>
 <td><input type="text" name="memberName" value="<%=(memVO==null) ? "" : memVO.getMemberName()%>"></td>
 </tr>
 
 <tr>
-<td>Password</td>
+<td>æœƒå“¡å¯†ç¢¼:</td>
 <td><input type="text" name="password" value="<%=(memVO==null) ? "" : memVO.getPassword()%>"></td>
 </tr>
 
 <tr>
-<td>Birthday</td>
-<td><input type="text" name="birthday" value="<%=(memVO==null) ? "" : memVO.getBirthday()%>"></td>
+<td>æœƒå“¡ç”Ÿæ—¥:</td>
+<td><input id="f_date1" type="text" name="birthday" value="<%=(memVO==null) ? "" : memVO.getBirthday()%>"></td>
 </tr>
 
 <tr>
-<td>Gender</td>
+<td>æœƒå“¡æ€§åˆ¥:</td>
 <td>
 	<select name="gender">
-		<option value="0">¨k</option>
-		<option value="1">¤k</option>
-		<option value="2">¨ä¥L</option>
+		<option value="0">ç”·</option>
+		<option value="1">å¥³</option>
+		<option value="2">å…¶ä»–</option>
 	</select>
 </td>
 </tr>
 
 <tr>
-<td>Phone</td>
+<td>æœƒå“¡é›»è©±:</td>
 <td><input type="text" name="phone" value="<%=(memVO==null) ? "" : memVO.getPhone()%>"></td>
 </tr>
 
 <tr>
-<td>Address</td>
+<td>æœƒå“¡åœ°å€:</td>
 <td><input type="text" name="address" value="<%=(memVO==null) ? "" : memVO.getAddress()%>"></td>
 </tr>
 
 <tr>
-<td>Picture</td>
-<td><input type="file" name="memberPic"></td>
+<td>æœƒå“¡åœ–ç‰‡:</td>
+<td><input type="file" name="memberPic" ></td>
 </tr>
 
 
 </table>
 
 <input type="hidden" name="action" value="insert">
-<input type="submit" value="°e¥X·s¼W">
+<input type="submit" value="é€å‡ºæ–°å¢">
 
 </form>
 
@@ -121,13 +121,13 @@ $.datetimepicker.setLocale('zh');
 $('#f_date1').datetimepicker({
     theme: '',              //theme: 'dark',
     timepicker:false,       //timepicker:true,
-    step: 1,                //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)
+    step: 1,                //step: 60 (é€™æ˜¯timepickerçš„é è¨­é–“éš”60åˆ†é˜)
     format:'Y-m-d',         //format:'Y-m-d H:i:s',
-	   value: '<%=birthday%>', // value:   new Date(),
-    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t
-    //startDate:	            '2017/07/10',  // °_©l¤é
-    //minDate:               '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e
-    //maxDate:               '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á
+	   value: '<%=birthday%>'
+    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // å»é™¤ç‰¹å®šä¸å«
+    //startDate:	            '2017/07/10',  // èµ·å§‹æ—¥
+    //minDate:               '-1970-01-01', // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å‰
+    //maxDate:               '+1970-01-01'  // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å¾Œ
  });
  
 </script>

@@ -2,15 +2,40 @@ package member.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "cactus")
 public class MemberVO implements java.io.Serializable{
+	@Id
+	@Column(name = "member_id")
 	private Integer memberId;
+	
+	@Column(name = "member_email")
 	private String email;
+	
+	@Column(name = "member_name")
 	private String memberName;
+	
+	@Column(name = "member_password")
 	private String password;
+	
+	@Column(name = "member_birthday")
 	private Date birthday;
+	
+	@Column(name = "member_gender")
 	private Integer gender;
+	
+	@Column(name = "member_phone")
 	private String phone;
+	
+	@Column(name = "member_address")
 	private String address;
+	
+	@Column(name = "member_pic")
 	private byte[] memberPic;
 	
 	

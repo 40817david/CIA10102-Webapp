@@ -15,6 +15,7 @@ import member.model.*;
 
 public class MemberServlet extends HttpServlet{
 
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException{
 		doPost(req, res);
@@ -24,7 +25,7 @@ public class MemberServlet extends HttpServlet{
 			throws ServletException, IOException{
 		
 		req.setCharacterEncoding("UTF-8");
-		
+		res.setContentType("text/html; charset=UTF-8");
 		//從前端抓取action去做後方對應操作判定
 		String action = req.getParameter("action");
 		
@@ -112,14 +113,18 @@ public class MemberServlet extends HttpServlet{
 			String email = req.getParameter("email");
 			if(email == null || email.trim().length() == 0) {
 				errorMsgs.add("Email:Can't Empty!");
-			}
+			} 
 			
 			
 			
 			String memberName = req.getParameter("memberName");
+			String memebrNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{2,10}$";
+
 			if(memberName == null || memberName.trim().length() == 0) {
 				errorMsgs.add("Name:Can't Empty!");
-			}
+			} else if(!memberName.trim().matches(memebrNameReg)) { //以下練習正則(規)表示式(regular-expression)
+				errorMsgs.add("姓名: 只能是中、英文字母、數字 , 且長度必需在2到10之間");
+            }
 			
 			
 			
@@ -203,6 +208,7 @@ public class MemberServlet extends HttpServlet{
 					out.println("</PRE>");
 					
 					memberPic = new byte[is.available()];
+					is.read();
 					is.close();
 				}
 			}
@@ -389,6 +395,7 @@ public class MemberServlet extends HttpServlet{
 						out.println("</PRE>");
 						
 						memberPic = new byte[is.available()];
+						is.read(memberPic);
 						is.close();
 					}
 				}

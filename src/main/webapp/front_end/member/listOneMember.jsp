@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="member.model.*"%>
 
@@ -10,29 +10,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>One Member -- From listOneMember.jsp</title>
 </head>
 
 
 <body>
 
-<h3>---·j´Mªº·|­û¸ê®Æµ²ªG---</h3>
+<h3>---æœå°‹çš„æœƒå“¡è³‡æ–™çµæœ---</h3>
 <br>
-<h4><a href="<%=request.getContextPath()%>/front_end/member/select_page.jsp">¦^­º­¶</a></h4>
+<h4><a href="<%=request.getContextPath()%>/front_end/member/select_page.jsp">å›é¦–é </a></h4>
 <br>
 
 <table>
 	<tr>
-		<th>·|­û½s¸¹</th>
+		<th>æœƒå“¡ç·¨è™Ÿ</th>
 		<th>Email</th>
-		<th>·|­û©m¦W</th>
-		<th>±K½X</th>
-		<th>¥Í¤é</th>
-		<th>©Ê§O</th>
-		<th>¹q¸Ü</th>
-		<th>¦a§}</th>
-		<th>·|­û¹Ï¤ù</th>
+		<th>æœƒå“¡å§“å</th>
+		<th>å¯†ç¢¼</th>
+		<th>ç”Ÿæ—¥</th>
+		<th>æ€§åˆ¥</th>
+		<th>é›»è©±</th>
+		<th>åœ°å€</th>
+		<th>æœƒå“¡åœ–ç‰‡</th>
 	</tr>
 	
 	<tr>
@@ -42,21 +42,21 @@
 			<td>${memVO.password}</td>
 			<td>${memVO.birthday}</td>
 				<c:if test="${memVO.gender==0}">
-					<td>¨k</td>
+					<td>ç”·</td>
 				</c:if>
 				<c:if test="${memVO.gender==1}">
-					<td>¤k</td>
+					<td>å¥³</td>
 				</c:if>
 				<c:if test="${memVO.gender==2}">
-					<td>¨ä¥L</td>
+					<td>å…¶ä»–</td>
 				</c:if>
 			<td>${memVO.phone}</td>
 			<td>${memVO.address}</td>
 				<c:if test="${memVO.memberPic==null}">
-					<td>µL¹Ï¤ù</td>
+					<td>ç„¡åœ–ç‰‡</td>
 				</c:if>
 				<c:if test="${memVO.memberPic!=null}">
-					<td>${memVO.memberPic}</td>
+					<td><img src="<%=request.getContextPath()%>/ShowPic?memberId=${memVO.memberId}"></td>
 				</c:if>
 		</tr>
 	
