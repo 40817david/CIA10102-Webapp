@@ -17,6 +17,6 @@
     	
     
     	<mapping class="member.model.MemberVO"></mapping>
-    	
+    	<mapping class="notification.model.NotificationListVO"></mapping>
     </session-factory>
 </hibernate-configuration>

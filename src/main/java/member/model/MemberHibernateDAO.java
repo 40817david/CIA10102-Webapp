@@ -3,96 +3,52 @@ package member.model;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import util.HibernateUtil;
+
 public class MemberHibernateDAO implements MemberDAO_interface {
 
+	// SessionFactory 為 thread-safe，可宣告為屬性讓請求執行緒們共用
+	private SessionFactory factory;	
+	
+	public MemberHibernateDAO() {
+		factory = HibernateUtil.getSessionFactory();
+	}
+		
+	// Session 為 not thread-safe，所以此方法在各個增刪改查方法裡呼叫
+		// 以避免請求執行緒共用了同個 Session
+		private Session getSession() {
+			return factory.getCurrentSession();
+		}
+		
+		
 	@Override
 	public void insert(MemberVO memberVO) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			
-			session.save(memberVO);
-			
-			session.getTransaction().commit();
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
+		getSession().save(memberVO);
 	}
 
 	
 	
 	@Override
 	public void update(MemberVO memberVO) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			
-			session.update(memberVO);
-			
-			session.getTransaction().commit();
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}		
+		getSession().update(memberVO);
+	
 	}
 
 	@Override
 	public MemberVO findByPK(Integer memberId) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			MemberVO memberVO = session.get(MemberVO.class, memberId);
-			
-			session.getTransaction().commit();
-
-			return memberVO;
-		}catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return null;
+		return getSession().get(MemberVO.class, memberId);
 	}
 
 	@Override
 	public MemberVO findByName(String memberName) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-
-			MemberVO memberVO = session.createQuery("from MemebrVO", MemberVO.class).uniqueResult();
-			
-			session.getTransaction().commit();
-			
-			return memberVO;
-		}catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return null;
+		return getSession().createQuery("from MemebrVO", MemberVO.class).uniqueResult();
 	}
 
 	@Override
 	public List<MemberVO> getAll() {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			
-			List<MemberVO> list = session.createQuery("from MemberVO", MemberVO.class).list();
-			
-			session.getTransaction().commit();
-
-			return list;
-		}catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-		return null;
+		return getSession().createQuery("from MemberVO", MemberVO.class).list();
 	}
 	
 //	public static void main(String[] args) {

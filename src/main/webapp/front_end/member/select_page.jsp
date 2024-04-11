@@ -7,10 +7,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Cactus Member Testing</title>
+
+
+
 </head>
 
 
 <body>
+
+
 
 <h3>---資料查詢---</h3>
 
@@ -76,11 +81,6 @@
 <li> <a href="<%=request.getContextPath()%>/front_end/member/addMember.jsp">新增會員</a></li>
 
 </ul>
-
-
-
-
-
 
 
 
