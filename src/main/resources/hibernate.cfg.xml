@@ -16,7 +16,7 @@
     	<property name="hibernate.format_sql">true</property>
     	
     
-    	<mapping class="com.cactus.CIA10102-Webapp.MemberVO"></mapping>
+    	<mapping class="member.model.MemberVO"></mapping>
     	
     </session-factory>
 </hibernate-configuration>

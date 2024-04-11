@@ -246,10 +246,11 @@ public class MemberServlet extends HttpServlet{
 			
 			
 			
-			
 			/***************************新增完成，轉交前台**********************/
 			req.setAttribute("memVO",memVO);
 			out.println("<h3>資料新增成功!!</h3>");
+			
+			
 		}
 
 

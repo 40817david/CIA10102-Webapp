@@ -4,39 +4,63 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cactus")
+@Table(name = "member")
 public class MemberVO implements java.io.Serializable{
+	
 	@Id
-	@Column(name = "member_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "member_id" ,
+		updatable = false, nullable = false)
 	private Integer memberId;
 	
-	@Column(name = "member_email")
+	
+	@Column(name = "member_email" ,
+			nullable = false , unique = true)
 	private String email;
 	
-	@Column(name = "member_name")
+	
+	@Column(name = "member_name" , 
+			nullable = false)
 	private String memberName;
 	
-	@Column(name = "member_password")
+	
+	@Column(name = "member_password" , 
+			nullable = false)
 	private String password;
 	
-	@Column(name = "member_birthday")
+	
+	@Column(name = "member_birthday" , 
+			nullable = false)
 	private Date birthday;
 	
-	@Column(name = "member_gender")
+	
+	@Column(name = "member_gender" , 
+			nullable = false)
 	private Integer gender;
 	
-	@Column(name = "member_phone")
+	
+	@Column(name = "member_phone" , 
+			columnDefinition = "char",
+			nullable = false)
 	private String phone;
 	
-	@Column(name = "member_address")
+	
+	@Column(name = "member_address" , 
+			nullable = false)
 	private String address;
 	
-	@Column(name = "member_pic")
+	
+	@Column(name = "member_pic" , 
+			columnDefinition = "longblob")
 	private byte[] memberPic;
+	
+	
 	
 	
 	public MemberVO() {
@@ -116,4 +140,6 @@ public class MemberVO implements java.io.Serializable{
 	public void setMemberPic(byte[] memberPic) {
 		this.memberPic = memberPic;
 	}
+	
+	//Override toString()
 }
