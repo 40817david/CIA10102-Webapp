@@ -1,9 +1,18 @@
 package member.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import util.HibernateUtil;
 
@@ -42,8 +51,27 @@ public class MemberHibernateDAO implements MemberDAO_interface {
 	}
 
 	@Override
-	public MemberVO findByName(String memberName) {
-		return getSession().createQuery("from MemebrVO", MemberVO.class).uniqueResult();
+	public List<MemberVO> findByName(Map<String, String> map) {
+		if (map.size() == 0) {
+			return getAll();
+		}
+		CriteriaBuilder builder = getSession().getCriteriaBuilder();
+		CriteriaQuery<MemberVO> criteria = builder.createQuery(MemberVO.class);
+		Root<MemberVO> root = criteria.from(MemberVO.class);
+
+		List<Predicate> predicates = new ArrayList<>();
+		
+		for (Map.Entry<String, String> row : map.entrySet()) {
+			if ("memberName".equals(row.getKey())) {
+				predicates.add(builder.like(root.get("memberName"), "%" + row.getValue() + "%"));
+			}
+		}
+		
+		criteria.where(builder.and(predicates.toArray(new Predicate[predicates.size()])));
+		criteria.orderBy(builder.asc(root.get("memberId")));
+		TypedQuery<MemberVO> query = getSession().createQuery(criteria);
+
+		return query.getResultList();
 	}
 
 	@Override

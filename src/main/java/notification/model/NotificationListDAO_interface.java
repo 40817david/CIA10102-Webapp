@@ -6,7 +6,7 @@ public interface NotificationListDAO_interface {
 	
 	public void insert(NotificationListVO noti);
 	
-	public NotificationListVO findByPK();
+	public NotificationListVO findByMemberId(Integer memberId);
 	
 	public List<NotificationListVO> getAll();
 }

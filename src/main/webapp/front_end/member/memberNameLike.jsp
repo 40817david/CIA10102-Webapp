@@ -3,16 +3,13 @@
 <%@ page import="member.model.*"%>
 
 
-<%
-	MemberVO memVO = (MemberVO)request.getAttribute("memVO");
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>One Member -- From listOneMember.jsp</title>
+<title>會員名稱模糊比對查詢結果!</title>
 </head>
+
 
 
 <body>
@@ -36,6 +33,7 @@
 	</tr>
 			
 			
+	<c:forEach var="memVO" items="${memList}">
 	<tr>
 			<td>${memVO.memberId}</td>
 			<td>${memVO.email}</td>
@@ -60,6 +58,7 @@
 					<td><img src="<%=request.getContextPath()%>/ShowPic?memberId=${memVO.memberId}"></td>
 				</c:if>
 	</tr>
+	</c:forEach>
 		
 	
 	

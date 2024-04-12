@@ -13,8 +13,8 @@ public interface MemberDAO_interface {
 	// 會員編號查詢
 	public MemberVO findByPK(Integer memberId);
 	
-	// 會員姓名查詢
-	public MemberVO findByName(String memberName);
+	// 會員姓名模糊查詢
+	public List<MemberVO> findByName(Map<String, String> map);
 
 	// 全部查詢
 	public List<MemberVO> getAll();

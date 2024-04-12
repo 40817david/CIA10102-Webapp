@@ -97,6 +97,84 @@ public class MemberServlet extends HttpServlet{
 		}
 		
 		
+//查詢2//		
+				if("findByName".equals(action)) {
+					
+					//儲存錯誤訊息，並顯示於畫面提醒使用者
+					List<String> errorMsgs = new LinkedList<String>();
+					req.setAttribute("errorMsgs", errorMsgs);
+
+					
+					
+					/***************************接收請求並做錯誤判斷**********************/
+	
+//					String memberName = req.getParameter("memberName");
+//					if(memberName == null || (memberName.trim()).length() == 0) {
+//						errorMsgs.add("請輸入會員名稱");
+//					}
+//					
+//					//若有錯誤訊息，則帶使用者回到頁面
+//					if(!errorMsgs.isEmpty()) {
+//						String failUrl = "/front_end/member/select_page.jsp" ;
+//						RequestDispatcher fail = req.getRequestDispatcher(failUrl);
+//						fail.forward(req, res);
+//						return; //中斷程式
+//					}
+					
+					
+//					String memebrNameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9)]{2,10}$";
+//					if(!memberName.trim().matches(memebrNameReg)) { 
+//						errorMsgs.add("會員名稱: 只能是中、英文字母、數字 , 且長度必需在2到10之間");
+//		            }
+//					
+//					//若有錯誤訊息，則帶使用者回到頁面
+//					if(!errorMsgs.isEmpty()) {
+//						String failUrl = "/front_end/member/select_page.jsp" ;
+//						RequestDispatcher fail = req.getRequestDispatcher(failUrl);
+//						fail.forward(req, res);
+//						return; //中斷程式
+//					}
+					
+					
+					
+					
+					/***************************輸入正確，做資料查詢**********************/
+					
+
+					
+					
+					
+					Map<String, String[]> map = req.getParameterMap();
+					MemberService memSvc = new MemberService();
+					if (map != null) {
+						List<MemberVO> memList = memSvc.findByName(map);
+						req.setAttribute("memList", memList);
+						
+						if(memList == null || memList.size() == 0){
+							errorMsgs.add("查無資料");
+						}
+					}
+
+					
+					
+					//若有錯誤訊息，則帶使用者回到頁面
+					if(!errorMsgs.isEmpty()) {
+						String failUrl = "/front_end/member/select_page.jsp" ;
+						RequestDispatcher fail = req.getRequestDispatcher(failUrl);
+						fail.forward(req, res);
+						return; //中斷程式
+					}
+					
+					
+					
+					
+					/***************************查詢完成，轉交前台**********************/
+					String successUrl = "/front_end/member/memberNameLike.jsp" ;
+					RequestDispatcher success = req.getRequestDispatcher(successUrl);
+					success.forward(req, res);
+				}
+		
+		
 		
 		
 //新增

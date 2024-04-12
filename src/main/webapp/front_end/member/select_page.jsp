@@ -43,6 +43,17 @@
 	
 	<li>
 		<form method="post" action="<%=request.getContextPath()%>/member.do">
+			<label>會員名稱模糊查詢!</label>
+			<input type="text" name="memberName">
+			<input type="hidden" name="action" value="findByName">
+       		<input type="submit" value="送出">
+		</form>
+	</li>
+	
+	<hr>
+	
+	<li>
+		<form method="post" action="<%=request.getContextPath()%>/member.do">
 			<label>請輸入會員編號</label>
 			<input type="text" name="memberId">
 			<input type="hidden" name="action" value="findByPK">

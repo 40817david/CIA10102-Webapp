@@ -23,11 +23,7 @@ public class NotificationListVO implements java.io.Serializable{
 	@Column(name = "notification_id",
 			updatable = false, nullable = false)
 	private Integer notiId;
-	
-	
-//	@Column(name = "member_id")
-	
-	
+		
 	
 	
 	@Column(name = "notification_type",
@@ -64,9 +60,14 @@ public class NotificationListVO implements java.io.Serializable{
 	@ManyToOne
 	@JoinColumn(name = "member_id" , referencedColumnName = "member_id")
 	private MemberVO member;
+	
+	
+	
 
 
-
+	public NotificationListVO() {
+		super();
+	}
 
 
 	public Integer getNotiId() {
