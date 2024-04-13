@@ -206,69 +206,9 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		
 	// 會員姓名查詢
 	@Override
-	public MemberVO findByName(String memberName) {
-		
-		MemberVO memberVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userId, password);
-			pstmt = con.prepareStatement(FIND_BY_NAME);
-
-			pstmt.setString(1, memberName);
-
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				memberVO = new MemberVO();
-				
-				memberVO.setMemberId(rs.getInt("member_id"));
-				memberVO.setEmail(rs.getString("member_email"));
-				memberVO.setMemberName(rs.getString("member_name"));
-				memberVO.setPassword(rs.getString("member_password"));
-				memberVO.setBirthday(rs.getDate("member_birthday"));
-				memberVO.setGender(rs.getInt("member_gender"));
-				memberVO.setPhone(rs.getString("member_phone"));
-				memberVO.setAddress(rs.getString("member_address"));
-				memberVO.setMemberPic(rs.getBytes("member_pic"));
-			}
-			
-			
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}finally {
-			
-			if(rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace();
-				}
-			}
-			
-			if(pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-				e.printStackTrace();
-				}
-			}
-			
-			if(con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}		
-		return memberVO;	
+	public List<MemberVO> findByName(Map<String, String> map) {
+		//已於Hibernate改為模糊查詢
+		return null;
 	}
 	
 	
