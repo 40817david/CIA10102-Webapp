@@ -79,23 +79,16 @@ public class MemberHibernateDAO implements MemberDAO_interface {
 		return getSession().createQuery("from MemberVO", MemberVO.class).list();
 	}
 	
-//	public static void main(String[] args) {
-//		MemberDAO_interface dao = new MemberHibernateDAO();
-//
-//		List<MemberVO> list = dao.getAll();
-//		for (MemberVO memVO : list) {
-//			System.out.print(memVO.getMemberId() + ",");
-//			System.out.print(memVO.getEmail() + ",");
-//			System.out.print(memVO.getMemberName() + ",");
-//			System.out.print(memVO.getPassword() + ",");
-//			System.out.print(memVO.getBirthday() + ",");
-//			System.out.print(memVO.getGender() + ",");
-//			System.out.print(memVO.getPhone());
-//			System.out.print(memVO.getAddress());
-//			System.out.print(memVO.getMemberPic());
-//			System.out.println();
-//		}
-//
-//	}
-
+	@Override
+	public MemberVO findByEmail(String email) {
+		MemberVO memVO = getSession().createQuery("from MemberVO where email=:email", MemberVO.class)
+				.setParameter("email", email)
+				.uniqueResult();
+		
+		if(memVO != null) {
+			return memVO;
+		}else {
+			return null;
+		}
+	}
 }

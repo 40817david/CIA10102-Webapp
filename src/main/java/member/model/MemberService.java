@@ -85,4 +85,8 @@ public class MemberService {
 	public MemberVO findByPK(Integer memberId) {
 		return dao.findByPK(memberId);
 	}
+	
+	public MemberVO findByEmail(String email) {
+		return dao.findByEmail(email);
+	}
 }

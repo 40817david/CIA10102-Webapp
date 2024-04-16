@@ -147,7 +147,7 @@ public class MemberRegisterServlet extends HttpServlet {
 			/*************************** 新增完成，轉交前台 **********************/
 			req.setAttribute("memVO", memVO);
 			req.setAttribute("status", "success");
-			String successUrl = "/front_end/member/memberRegister.jsp";
+			String successUrl = "/front_end/member/memberLogin.jsp";
 			RequestDispatcher success = req.getRequestDispatcher(successUrl);
 			success.forward(req, res);
 

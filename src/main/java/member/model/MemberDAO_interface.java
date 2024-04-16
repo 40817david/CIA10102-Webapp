@@ -18,6 +18,9 @@ public interface MemberDAO_interface {
 
 	// 全部查詢
 	public List<MemberVO> getAll();
+	
+	//會員信箱查詢
+	public MemberVO findByEmail(String email);
 
 
 }

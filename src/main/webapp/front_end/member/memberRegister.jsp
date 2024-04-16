@@ -16,10 +16,10 @@
 
 <!-- Font Icon -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/fonts/memberRegister_icon/css/material-design-iconic-font.min.css">
+	href="${pageContext.request.contextPath}/fonts/member_icon/css/material-design-iconic-font.min.css">
 
 <!-- Main css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/memberRegister.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
 
 </head>
 
@@ -78,13 +78,13 @@
 							</div>
 							
 							<div class="form-group">
-								<label for="bir"><i class="zmdi zmdi-lock-outline"></i></label>
+								<label for="bir"><i class="zmdi zmdi-cake"></i></label>
 								<input type="text" name="birthday" id="bir" 
 								value="<%=(memVO==null) ? "" : memVO.getBirthday()%>"/>
 							</div>
 							
 							<div class="form-group">
-								<label for="gender"><i class="zmdi zmdi-lock-outline"></i></label>
+								<label for="gender"><i class="zmdi zmdi-male-female"></i></label>
 								<select name="gender" id="gender">
 									<option value="-1">請選擇性別...</option>
 									<option value="0">男</option>
@@ -94,19 +94,19 @@
 							</div>
 							
 							<div class="form-group">
-								<label for="phone"><i class="zmdi zmdi-lock-outline"></i></label>
+								<label for="phone"><i class="zmdi zmdi-phone"></i></label>
 								<input type="text" name="phone" id="phone" placeholder="請輸入電話..."
 								value="<%=(memVO==null) ? "" : memVO.getPhone()%>"/>
 							</div>
 							
 							<div class="form-group">
-								<label for="address"><i class="zmdi zmdi-lock-outline"></i></label>
+								<label for="address"><i class="zmdi zmdi-home"></i></label>
 								<input type="text" name="address" id="address" placeholder="請輸入地址..."
 								value="<%=(memVO==null) ? "" : memVO.getAddress()%>"/>
 							</div>
 							
 							<div class="form-group">
-								<label for="pic"><i class="zmdi zmdi-lock-outline"></i></label>
+								<label for="pic"><i class="zmdi zmdi-assignment-account"></i></label>
 								<input type="file" name="memberPic" id="pic"/>
 							</div>
 							
@@ -123,7 +123,7 @@
 					<div class="signup-image">
 					
 						<figure>
-							<img src="${pageContext.request.contextPath}/img/signup-image.jpg" alt="sing up image">
+							<img src="${pageContext.request.contextPath}/img/icons/LOGO.png" alt="sing up image">
 						</figure>
 						
 						<a href="${pageContext.request.contextPath}/front_end/member/memberLogin.jsp" class="signup-image-link">返回登入畫面</a>
@@ -144,7 +144,7 @@
 	<link rel="stylesheet" href="alert/dist/sweetalert.css">
 	
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/memberRegister.js"></script>
+	<script src="${pageContext.request.contextPath}/js/member.js"></script>
 	
 
 <% 
@@ -190,6 +190,8 @@ $('#bir').datetimepicker({
 var status = $("#status").val();
 if(status == "success"){
 	swal("恭喜您~","帳號已成功申請，請回到登入頁面進行登入!","success");
+}else if (status == "failed"){
+	swal("請注意~","有些選項沒有填妥喔~請麻煩再確認一次!","warning")
 }
 
 </script>

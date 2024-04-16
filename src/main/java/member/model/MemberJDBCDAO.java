@@ -282,7 +282,10 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		return list;
 	}
 
-	
+	@Override
+	public MemberVO findByEmail(String email) {
+		return null;
+	}
 	
 	
 	public static void main(String[] args) {
