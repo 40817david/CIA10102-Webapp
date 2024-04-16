@@ -85,7 +85,7 @@
 
 		var status = $("#status").val();
 		if (status == "failed"){
-			swal("錯誤","帳號或密碼錯誤，請再試一次!","failed")
+			swal("錯誤","帳號或密碼錯誤，請再試一次!","error")
 		}
 		
 	</script>

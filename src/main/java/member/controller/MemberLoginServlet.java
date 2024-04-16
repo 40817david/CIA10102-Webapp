@@ -43,6 +43,7 @@ public class MemberLoginServlet extends HttpServlet {
 
 			// 若有錯誤訊息，則帶使用者回到頁面
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("status", "failed");
 				String failUrl = "/front_end/member/memberLogin.jsp";
 				RequestDispatcher fail = req.getRequestDispatcher(failUrl);
 				fail.forward(req, res);
@@ -57,23 +58,25 @@ public class MemberLoginServlet extends HttpServlet {
 				errorMsgs.add("Not this One");
 			}
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("status", "failed");
 				String failUrl = "/front_end/member/memberLogin.jsp";
 				RequestDispatcher fail = req.getRequestDispatcher(failUrl);
 				fail.forward(req, res);
 				return; // 中斷程式
 			}
-			
-			
-			if(!memVO.getEmail().equals(email)) {
+
+			// 檢查帳號 , 密碼是否正確
+			if (!memVO.getEmail().equals(email)) {
 				errorMsgs.add("WrongEmail");
 			}
-			
-			if(!memVO.getPassword().equals(password)) {
+
+			if (!memVO.getPassword().equals(password)) {
 				errorMsgs.add("WrongPassword");
 			}
 
 			// 若有錯誤訊息，則帶使用者回到頁面
 			if (!errorMsgs.isEmpty()) {
+				req.setAttribute("status", "failed");
 				String failUrl = "/front_end/member/memberLogin.jsp";
 				RequestDispatcher fail = req.getRequestDispatcher(failUrl);
 				fail.forward(req, res);
@@ -82,11 +85,23 @@ public class MemberLoginServlet extends HttpServlet {
 
 			/*************************** 查詢完成，轉交前台 **********************/
 			HttpSession session = req.getSession();
-			session.setAttribute("memVO", memVO);
-			req.setAttribute("status", "success");
-			String successUrl = "/front_end/member/memberOnlyWeb.jsp";
-			RequestDispatcher success = req.getRequestDispatcher(successUrl);
-			success.forward(req, res);
+			req.setAttribute("memVO", memVO);
+			session.setAttribute("account", email);
+
+			try {
+				String location = (String) session.getAttribute("location");
+				if (location != null) {
+					res.sendRedirect(location);
+					session.removeAttribute("location"); // 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
+					return;
+				}
+			} catch (Exception ignored) {
+				ignored.printStackTrace();
+			}
+			res.sendRedirect(req.getContextPath() + "/front_end/member/memberOnlyWeb.jsp"); //(-->如無來源網頁:則導進會員專區)
+//			String successUrl = "/front_end/member/memberOnlyWeb.jsp";
+//			RequestDispatcher success = req.getRequestDispatcher(successUrl);
+//			success.forward(req, res);
 		}
 
 	}
