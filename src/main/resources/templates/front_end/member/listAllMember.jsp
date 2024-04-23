@@ -1,9 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="member.model.*"%>
+
+<%
+	MemberService memSvc = new MemberService();
+	List<MemberVO> list = memSvc.getAll();
+	pageContext.setAttribute("list", list);
+%>
 
 
 <!DOCTYPE html>
-
 
 <html>
 
@@ -43,18 +50,7 @@
     <!-- Template Stylesheet -->
     <link href="<%=request.getContextPath()%>/backendweb/css/style.css" rel="stylesheet">
   
-  
-  <style>
-  	.unique{
-  		text-align:center;
-  	}
-  
-  </style>
 </head>
-
-
-
-
 
 
 <body>
@@ -284,85 +280,68 @@
         
         <!-- 主欄位 -->
 	    <div class="unique">
-
-	          	<h3>---資料查詢---</h3>
-
-<%-- 錯誤訊息列表呈現處 --%>
-
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-	    <c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-
-
-<ul>
-	<li>
-	<a href = "<%=request.getContextPath()%>/front_end/member/listAllMember.jsp">秀出所有資料</a>
-	</li>
-	
-	
-	<br>
-	
-	
-	<li>
-		<form method="post" action="<%=request.getContextPath()%>/member.do">
-			<label>會員名稱模糊查詢!</label>
-			<input type="text" name="memberName">
-			<input type="hidden" name="action" value="findByName">
-       		<input type="submit" value="送出">
-		</form>
-	</li>
-	
-	<hr>
-	
-	<li>
-		<form method="post" action="<%=request.getContextPath()%>/member.do">
-			<label>請輸入會員編號</label>
-			<input type="text" name="memberId">
-			<input type="hidden" name="action" value="findByPK">
-       		<input type="submit" value="送出">
-		</form>
-	</li>
-	
-	
-<jsp:useBean id="memSvc" scope="page" class="member.model.MemberService" />
-	
-	<li>
-		<form method="post" action="<%=request.getContextPath()%>/member.do">
-			<label>請選擇會員編號</label>
-			<select size="1" name="memberId">
-				<c:forEach var="memVO" items="${memSvc.all}" > 
-          			<option value="${memVO.memberId}">${memVO.memberId}
-         		</c:forEach>   
-       		</select>
-       		<input type="hidden" name="action" value="findByPK">
-       		<input type="submit" value="送出">
-		</form>
-	</li>
-
-</ul>
-
-
-
-<br>
-<br>
-
-
-
-
-<ul>
-
-<li> <a href="<%=request.getContextPath()%>/front_end/member/addMember.jsp">新增會員</a></li>
-
-</ul>
+	          	
+	          	
+		
+		
+		
+			<h3>---所有會員資料---</h3>
+			<br>
+			<h4><a href="<%=request.getContextPath()%>/front_end/member/select_page.jsp">回首頁</a></h4>
+			<br>
+			
+			<table>
+				<tr>
+					<th>會員編號</th>
+					<th>Email</th>
+					<th>會員姓名</th>
+					<th>密碼</th>
+					<th>生日</th>
+					<th>性別</th>
+					<th>電話</th>
+					<th>地址</th>
+					<th>會員圖片</th>
+					<th>修改</th>
+				</tr>
+				
+				<c:forEach var="memVO" items="${list}">
+					<tr>
+						<td>${memVO.memberId}</td>
+						<td>${memVO.email}</td>
+						<td>${memVO.memberName}</td>
+						<td>${memVO.password}</td>
+						<td>${memVO.birthday}</td>
+							<c:if test="${memVO.gender==0}">
+								<td>男</td>
+							</c:if>
+							<c:if test="${memVO.gender==1}">
+								<td>女</td>
+							</c:if>
+							<c:if test="${memVO.gender==2}">
+								<td>其他</td>
+							</c:if>
+						<td>${memVO.phone}</td>
+						<td>${memVO.address}</td>
+						
+							<c:if test="${memVO.memberPic==null}">
+								<td>無圖片</td>
+							</c:if>
+							<c:if test="${memVO.memberPic!=null}">
+								<td><img src="<%=request.getContextPath()%>/ShowPic?memberId=${memVO.memberId}"></td>
+							</c:if>
+							
+						<td>
+						  <form method="post" action="<%=request.getContextPath()%>/member.do">
+						     <input type="submit" value="修改">
+						     <input type="hidden" name="memberId"  value="${memVO.memberId}">
+						     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
 	          	
 	
-            </div>
+        </div>
         
 
        
@@ -390,7 +369,5 @@
 
 
 </body>
-
-
 
 </html>

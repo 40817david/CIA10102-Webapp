@@ -23,7 +23,7 @@
 
 <body>
 
-<input type="hidden" id="status" value="<%=request.getAttribute("status")%>">
+<input type="hidden" id="status" th:value="<%=request.getAttribute("status")%>">
 
 
 	<div class="main">

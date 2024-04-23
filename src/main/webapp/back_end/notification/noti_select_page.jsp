@@ -302,45 +302,33 @@
 
 <ul>
 	<li>
-	<a href = "<%=request.getContextPath()%>/front_end/member/listAllMember.jsp">秀出所有資料</a>
+	<a href = "<%=request.getContextPath()%>/back_end/notification/listAllNoti.jsp">秀出所有資料</a>
 	</li>
 	
-	
-	<br>
-	
-	
-	<li>
-		<form method="post" action="<%=request.getContextPath()%>/member.do">
-			<label>會員名稱模糊查詢!</label>
-			<input type="text" name="memberName">
-			<input type="hidden" name="action" value="findByName">
-       		<input type="submit" value="送出">
-		</form>
-	</li>
 	
 	<hr>
 	
 	<li>
-		<form method="post" action="<%=request.getContextPath()%>/member.do">
+		<form method="post" action="<%=request.getContextPath()%>/NotiServlet">
 			<label>請輸入會員編號</label>
 			<input type="text" name="memberId">
-			<input type="hidden" name="action" value="findByPK">
+			<input type="hidden" name="action" value="findByMemberId">
        		<input type="submit" value="送出">
 		</form>
 	</li>
 	
 	
-<jsp:useBean id="memSvc" scope="page" class="member.model.MemberService" />
+<jsp:useBean id="notiSvc" scope="page" class="notification.model.NotificationListService" />
 	
 	<li>
-		<form method="post" action="<%=request.getContextPath()%>/member.do">
+		<form method="post" action="<%=request.getContextPath()%>/NotiServlet">
 			<label>請選擇會員編號</label>
 			<select size="1" name="memberId">
-				<c:forEach var="memVO" items="${memSvc.all}" > 
-          			<option value="${memVO.memberId}">${memVO.memberId}
+				<c:forEach var="notiVO" items="${notiSvc.all}" > 
+          			<option value="${notiVO.member.memberId}">${notiVO.member.memberId}
          		</c:forEach>   
        		</select>
-       		<input type="hidden" name="action" value="findByPK">
+       		<input type="hidden" name="action" value="findByMemberId">
        		<input type="submit" value="送出">
 		</form>
 	</li>
@@ -357,7 +345,7 @@
 
 <ul>
 
-<li> <a href="<%=request.getContextPath()%>/front_end/member/addMember.jsp">新增會員</a></li>
+<li> <a href="<%=request.getContextPath()%>/back_end/notification/newnoti.jsp">發送消息</a></li>
 
 </ul>
 	          	

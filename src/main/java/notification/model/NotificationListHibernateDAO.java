@@ -31,10 +31,11 @@ public class NotificationListHibernateDAO implements NotificationListDAO_interfa
 
 	@Override
 	public NotificationListVO findByMemberId(Integer memberId) {	
-//		Query<NotificationListVO> query = getSession().createQuery("from NotificationListVO where member = :member", NotificationListVO.class);
-//		NotificationListVO notiVO = new NotificationListVO();
-//		notiVO.setMember(null);
-		return null;
+		MemberVO memVO = getSession().get(MemberVO.class, memberId);
+		NotificationListVO notiVO = getSession().createQuery("from NotificationListVO where member_id =?0" , NotificationListVO.class)
+				.setParameter(0,memVO)
+				.uniqueResult();
+		return notiVO;
 	}
 	
 	@Override

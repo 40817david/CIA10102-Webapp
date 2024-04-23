@@ -5,11 +5,11 @@ import java.util.List;
 public interface NotificationListService_interface {
 	
 	public void sendMessage(
-			Integer memberId, Integer messType, String messTitle, String messContent);
+			Integer memberId, Integer notiType, String notiTitle, String notiContent);
 	
-	public void orderSuccess(Integer memberId, String messContent);
+	public void orderSuccess(Integer memberId, Integer notiType, String notiContent);
 	
-	public void orderCancel(Integer memberId, String messContent);
+	public void orderCancel(Integer memberId, Integer notiType, String notiContent);
 	
 	public NotificationListVO findByMemberId(Integer memberId);
 	
